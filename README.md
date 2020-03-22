@@ -1,2 +1,2 @@
-# pydjango
-Repository for django projects
+# pyweb
+Repository for python web projects
