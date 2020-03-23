@@ -1,5 +1,5 @@
 """
-ASGI config for wmss project.
+ASGI config for wms project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'wmss.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'wms.settings')
 
 application = get_asgi_application()
