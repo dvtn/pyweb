@@ -22,6 +22,7 @@ class Employee(models.Model):
     created_time = models.DateTimeField(verbose_name='创建时间', auto_now_add=True)
     last_updated_by = models.CharField(verbose_name='最后更新人', max_length=50)
     last_updated_time = models.DateTimeField(verbose_name='最后更新时间', auto_now=True)
+    department = models.ForeignKey('Department',on_delete=models.CASCADE)
 
 
 class Department(models.Model):
