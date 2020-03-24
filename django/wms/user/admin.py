@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Employee, Department,Education
+from .models import Employee, Department, Education
 
 
 class EmployeeAdmin(admin.ModelAdmin):
@@ -19,7 +19,8 @@ class EmployeeAdmin(admin.ModelAdmin):
         ('员工基本信息', {'fields': ['user_code', 'user_name', 'gender', 'marital', 'id_card',
                                'birth_date', 'mobile', 'home_address']}),
         ('职位信息', {'fields': ['department', 'manager_id', 'email', 'position', 'hire_date', 'status', 'created_by',
-                             'last_updated_by']})
+                             'last_updated_by']}),
+        ('教育背景',{'fields':['education','degree','major','enrollment_date','graduate_date']})
     ]
 
 
@@ -30,17 +31,20 @@ admin.site.register(Employee, EmployeeAdmin)
 class DepartmentAdmin(admin.ModelAdmin):
     list_display = ['pk', 'department_name', 'department_desc', 'supervisor', 'created_by', 'created_time',
                     'last_updated_by', 'last_updated_by']
-    list_filter = ['department_name','supervisor']
-    search_fields = ['department_name','supervisor']
+    list_filter = ['department_name', 'supervisor']
+    search_fields = ['department_name', 'supervisor']
     list_per_page = 15
+
 
 admin.site.register(Department, DepartmentAdmin)
 
+
 class EducationAdmin(admin.ModelAdmin):
-    list_display = ['institution','created_by', 'created_time',
+    list_display = ['institution', 'created_by', 'created_time',
                     'last_updated_by', 'last_updated_by']
     list_filter = ['institution']
     search_fields = ['institution']
     list_per_page = 15
 
-admin.site.register(Education,EducationAdmin)
+
+admin.site.register(Education, EducationAdmin)

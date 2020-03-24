@@ -11,6 +11,7 @@ class Employee(models.Model):
     MARITAL = (
         ('married','已婚'),
         ('unmarried','未婚'),
+        ('divorce','离异'),
     )
 
     NATION = (
@@ -48,8 +49,8 @@ class Employee(models.Model):
     user_name = models.CharField(verbose_name='用户姓名', max_length=50)
     nation = models.CharField(verbose_name="民族", choices=NATION, max_length=10)
     status = models.CharField(verbose_name='用户状态', max_length=20, choices=STATUS)
-    marital = models.CharField(verbose_name='婚姻状况', max_length=15,choices=MARITAL)
-    gender = models.BooleanField(verbose_name='性别',choices=GENDER)
+    marital = models.CharField(verbose_name='婚姻状况', max_length=15,choices=MARITAL, default='未婚')
+    gender = models.CharField(verbose_name='性别',choices=GENDER, max_length=2, default='男')
     id_card = models.CharField(verbose_name='身份证号', max_length=30)
     hire_date = models.DateField(verbose_name="入职日期")
     birth_date = models.DateField(verbose_name="出生日期")
@@ -59,16 +60,16 @@ class Employee(models.Model):
     email = models.EmailField(verbose_name="电子邮箱")
     mobile = models.CharField(verbose_name='手机号码', max_length=30)
     department = models.ForeignKey('Department',on_delete=models.CASCADE)
-    education = models.ForeignKey('Education', on_delete=models.CASCADE)
-
-    degree = models.CharField(verbose_name='学位', choices=DEGREE, max_length=50)
+    school = models.ForeignKey('Education', on_delete=models.CASCADE, null=True)
+    education = models.CharField(verbose_name='学历',choices=EDUCATION, max_length=50, default='大学')
+    degree = models.CharField(verbose_name='学位', choices=DEGREE, max_length=50, default='学士')
     major = models.CharField(verbose_name='专业', max_length=50)
     enrollment_date = models.DateField(verbose_name='入学时间')
     graduate_date = models.DateField(verbose_name='毕业时间')
-    created_by = models.CharField(verbose_name='创建人', max_length=50)
+    created_by = models.CharField(verbose_name='创建人', max_length=50,default='管理员')
     created_time = models.DateTimeField(verbose_name='创建时间', auto_now_add=True)
-    last_updated_by = models.CharField(verbose_name='最后更新人', max_length=50)
-    last_updated_time = models.DateTimeField(verbose_name='最后更新时间', auto_now=True)
+    last_updated_by = models.CharField(verbose_name='最后更新人', max_length=50, null=True, default='管理员')
+    last_updated_time = models.DateTimeField(verbose_name='最后更新时间', auto_now=True, null=True)
 
     class Meta(object):
         db_table = 'employee'
@@ -80,10 +81,10 @@ class Department(models.Model):
     department_name = models.CharField(verbose_name='部门名称', max_length=100)
     department_desc = models.CharField(verbose_name='部门描述', max_length=300)
     supervisor = models.CharField(verbose_name='部门主管', max_length=50)
-    created_by = models.CharField(verbose_name='创建人', max_length=50)
+    created_by = models.CharField(verbose_name='创建人', max_length=50, default='管理员')
     created_time = models.DateTimeField(verbose_name='创建时间', auto_now_add=True)
-    last_updated_by = models.CharField(verbose_name='最后更新人', max_length=50)
-    last_updated_time = models.DateTimeField(verbose_name='最后更新时间', auto_now=True)
+    last_updated_by = models.CharField(verbose_name='最后更新人', max_length=50, null=True, default='管理员')
+    last_updated_time = models.DateTimeField(verbose_name='最后更新时间', auto_now=True, null=True)
 
     class Meta(object):
         db_table = 'department'
@@ -94,10 +95,10 @@ class Department(models.Model):
 class Education(models.Model):
 
     institution = models.CharField(verbose_name='毕业院校', max_length=200)
-    created_by = models.CharField(verbose_name='创建人', max_length=50)
+    created_by = models.CharField(verbose_name='创建人', max_length=50, default='管理员')
     created_time = models.DateTimeField(verbose_name='创建时间', auto_now_add=True)
-    last_updated_by = models.CharField(verbose_name='最后更新人', max_length=50)
-    last_updated_time = models.DateTimeField(verbose_name='最后更新时间', auto_now=True)
+    last_updated_by = models.CharField(verbose_name='最后更新人', max_length=50, null=True, default='管理员')
+    last_updated_time = models.DateTimeField(verbose_name='最后更新时间', auto_now=True, null=True)
 
     class Meta(object):
         db_table = 'education'
